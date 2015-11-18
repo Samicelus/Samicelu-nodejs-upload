@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			body{
+				margin: 0;
+				padding: 0;	
+				font-family: "微软雅黑";
+			}
+			#upLoadArea{
+				margin: 0;
+				width: 250px;
+				display: inline-block;
+				border: 1px solid #cccccc;
+				padding: 4px;
+				padding-right: 0px;
+			}
+			#fileSelect_hidden{
+				width: 180px;
+				display: block;
+				float: left;
+				position: absolute;
+				opacity: 0;
+			}
+			#fileSelect_hidden:hover{
+				cursor: pointer;
+			}
+			#fileBtn{
+				pointer-events:none;
+				cursor: pointer ;
+			}
+			#fileSelect{
+				width: 120px;
+			}
+			span{
+				font-size: 14px;
+			}
+			#subBtn{
+				width: 50px;
+				border-radius: 2px;
+				padding: 1px;
+				font-size: 14px;
+				display: inline-block;
+				margin: auto;
+				text-align: center;
+				background-color: #0088BB;
+				color: whitesmoke;
+				cursor: pointer ;
+			}
+			#subBtn:hover{
+				background-color:#22AADD
+			}
+			#progressBar{
+				width: 70%;
+			}
+			#progressArea{
+				margin: 0;
+				width: 250px;
+				border: 1px solid #cccccc;
+				padding: 4px;
+				padding-right: 0px;
+				display: none;
+			}
+		</style>
+		<script>
+			function choseFile(){
+				var file = document.getElementById('fileSelect_hidden').files[0];
+				if (file) {
+				    document.getElementById('fileSelect').value = file.name;
+				   
+					//input
+	                var docObj = document.getElementById("fileSelect_hidden");
+					//img
+	                var imgObjPreview = document.getElementById("preview");
+	                //div
+	                var divs = document.getElementById("localImag");
+	                if (docObj.files && docObj.files[0]){
+	                    //火狐下，直接设img属性
+	                    imgObjPreview.style.display = 'block';
+	                    imgObjPreview.style.width = '250px';
+	                    imgObjPreview.style.height = 'auto';
+	                    //imgObjPreview.src = docObj.files[0].getAsDataURL();
+	                    //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
+	                   imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+	                } 
+	                else{
+	                    //IE下，使用滤镜
+	                    docObj.select();
+	                    var imgSrc = document.selection.createRange().text;
+	                    var localImagId = document.getElementById("localImag");
+	                    //必须设置初始大小
+	                    localImagId.style.width = "250px";
+	                    localImagId.style.height = "auto";
+	                    //图片异常的捕捉，防止用户修改后缀来伪造图片
+	                    try {
+	                        localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+	                        localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+	                    } catch(e) {
+	                        alert("您上传的图片格式不正确，请重新选择!");
+	                        return false;
+	                    }
+	                    imgObjPreview.style.display = 'none';
+	                    document.selection.empty();
+	                }
+	                return true;
+				}
+			}
+			
+			function upLoad(){
+				if(document.getElementById('fileSelect').value!=""){
+					document.getElementById('progressArea').style.display="block";
+					document.getElementById('upLoadArea').style.display="none";
+					excUpload();
+				}
+				else{
+					alert("请选择上传文件！");
+				}
+			}
+			var xhr;
+
+			function excUpload(){
+        		var fileController = "/upload";                    
+	            var fd = new FormData(document.getElementById("form1"));   
+	            var file = document.getElementById('fileSelect_hidden').files[0];
+	            fd.append("appid",appid);
+	            fd.append("timestamp",Date.parse(new Date()));
+	            fd.append("fileName",fileName);
+	            fd.append("savePath",savePath);
+	            fd.append("fileType",file.type)
+	            xhr = new XMLHttpRequest();
+	            xhr.open("POST", fileController);		
+	            xhr.onload = function () {		
+	                alert("上传完成!");
+	            };
+				xhr.upload.addEventListener("progress", progressFunction);
+	            xhr.send(fd);
+			}
+			function progressFunction(event) {
+	            var progressBar = document.getElementById("progressBar");	
+	            if (event.lengthComputable) {	
+	                progressBar.max = event.total;      	
+	                progressBar.value = event.loaded;	
+	                if(progressBar.max==progressBar.value){
+	                	document.getElementById('progressArea').style.display="none";
+						document.getElementById('upLoadArea').style.display="block";
+						xhr.removeEventListener("progress", progressFunction, false);
+	                }
+	            }	
+	        }
+			function showAlert(){
+				document.getElementById("fileBtn").style.color="brown";
+			}
+			
+			function hideAlert(){
+				document.getElementById("fileBtn").style.color="black";
+			}
+		</script>
+	</head>
+	<body>
+		<div>
+			<div id="localImag">
+			        <img id="preview" src="" style="display: block;"/>
+			</div>
+			<div id="upLoadArea">
+				<form id="form1">
+					<input type="file" id="fileSelect_hidden" name="upload" onchange="choseFile()" onmouseover="showAlert()" onmouseout="hideAlert()"/>	
+				</form>
+				<span id="fileBtn">选择文件</span>
+				<input id="fileSelect" readonly="readonly"></input>
+				<div id="subBtn" onclick="upLoad()">上传</div>
+			</div>
+			<div id="progressArea">
+				<span>上传进度</span> <progress id="progressBar" value="1" max="100"></progress>
+			</div>
+		</div>
+	</body>
+</html>
