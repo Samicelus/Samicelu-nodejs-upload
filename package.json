@@ -1,0 +1,21 @@
+{
+  "name": "Samicelus-nodejs-upload",
+  "version": "0.0.0",
+  "devDependencies": {
+		"node-schedule": "~0.2.6",
+		"node-native-zip": "~1.1.0",
+		"gm": "~1.17.0",
+		"formidable": "~1.0.17"
+  },
+  "description": "nodejs-upload",
+  "main": "startMain.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "Samicelus-nodejs-upload"
+  },
+  "author": "Samicelus",
+  "license": "GNU"
+}
