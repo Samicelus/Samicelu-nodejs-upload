@@ -25,7 +25,7 @@ var archive = new zip();
 
 function start (response,request) {
     console.log('start module');
-	fs.readFile('./html/upload.html', function (err, data) {
+	fs.readFile('./html/index.html', function (err, data) {
 		if (err){
 			console.log(err);
 			response.write("err"+err);
@@ -184,23 +184,6 @@ function uploadDoc (response,request) {
 			}
 }
 
-/*
-function downloadDoc (response,request) {
-   
-	fs.readFile('./upload/'+appid+'_'+timestamp+'/'+docTypeName+'.'+docType, function (err, data) {
-		if (err){
-			console.log(err);
-			response.write("err"+err);
-			response.end();
-		}else{
-			response.writeHead(200, {'Content-Type': 'image/jpeg'});
-			response.write(data);
-			response.end();			
-			}
-	});
-}
-
-*/
 
 function download (response, request) {
 	var form = new formidable.IncomingForm();
@@ -242,7 +225,4 @@ function delExtension(str){
 exports.start = start;
 exports.upload = upload;
 exports.uploadDoc = uploadDoc;
-/*
-exports.downloadDoc = downloadDoc;
-*/
 exports.download = download;
