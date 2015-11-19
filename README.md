@@ -23,8 +23,10 @@ Edit the config.json
    {
    "uploadServerPort":5901,
    "localUDPPort":7006,
-   "socketManagerUDPPort":7007
+   "socketManagerUDPPort":7007,
+   "rootPath":"D:/productData/nodejs_upload/"
    }
 ```
 
 Note that browser access the uploadservice through uploadServerPort, uploadservice inform socketManager using UDP via socketManagerUDPPort.
+rootPath is the root path of this folder.
