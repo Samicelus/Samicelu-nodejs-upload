@@ -14,5 +14,17 @@ Then install graphicsMagick on the target PC:
 * [GraphicsMagick-1.3.23-Q16-win64-dll](http://pan.baidu.com/s/1mgxq2da) -a lite tool for image processing with command.
 [GraphicsMagick's official site](http://www.graphicsmagick.org/)
 
-Use
+
+Initialize
 ================
+
+Edit the config.json
+```js
+   {
+   "uploadServerPort":5901,
+   "localUDPPort":7006,
+   "socketManagerUDPPort":7007
+   }
+```
+
+Note that browser access the uploadservice through uploadServerPort, uploadservice inform socketManager using UDP via socketManagerUDPPort.
