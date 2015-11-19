@@ -40,5 +40,5 @@ Start service
 
 Run the service by entering "node "+file name in the command line
 ```bush
-node index.js
+node startMain.js
 ```
