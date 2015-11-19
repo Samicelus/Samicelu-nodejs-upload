@@ -1,5 +1,6 @@
 {
 "uploadServerPort":5901,
 "localUDPPort":7006,
-"socketManagerUDPPort":7007
+"socketManagerUDPPort":7007,
+"rootPath":"D:/productData/nodejs_upload/"
 }
