@@ -14,6 +14,9 @@ Then install graphicsMagick on the target PC:
 * [GraphicsMagick-1.3.23-Q16-win64-dll](http://pan.baidu.com/s/1mgxq2da) -a lite tool for image processing with command.
 [GraphicsMagick's official site](http://www.graphicsmagick.org/)
 
+Note that this service is mean to install in the same server as Samicelus-ctrl, and run with its socketManager.js
+[Samicelus-ctrl](https://github.com/Samicelus/samicelus-ctrl)
+
 
 Initialize
 ================
@@ -30,3 +33,12 @@ Edit the config.json
 
 Note that browser access the uploadservice through uploadServerPort, uploadservice inform socketManager using UDP via socketManagerUDPPort.
 rootPath is the root path of this folder.
+
+
+Start service
+================
+
+Run the service by entering "node "+file name in the command line
+```bush
+node index.js
+```
