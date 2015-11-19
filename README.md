@@ -14,3 +14,5 @@ Then install graphicsMagick on the target PC:
 * [GraphicsMagick-1.3.23-Q16-win64-dll](http://pan.baidu.com/s/1mgxq2da) -a lite tool for image processing with command.
 [GraphicsMagick's official site](http://www.graphicsmagick.org/)
 
+Use
+================
